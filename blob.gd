@@ -43,12 +43,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 		
 	
-	if on_water == true && Input.is_action_just_pressed("down") && in_water == false:
-		in_water = true
-		$CollisionShape2D.shape.size.y = 128
-		velocity.y = 200
-		set_collision_mask_value(2, false)
-		in_water = true
+	
 		
 		
 	
@@ -62,6 +57,12 @@ func _physics_process(delta: float) -> void:
 		water_mobility(delta)
 	else:
 		land_mobility(delta)
+	if on_water == true && Input.is_action_pressed("down") && in_water == false:
+		in_water = true
+		$CollisionShape2D.shape.size.y = 128
+		velocity.y = 300
+		set_collision_mask_value(2, false)
+		in_water = true
 	move_and_slide()
 
 
@@ -70,11 +71,13 @@ func water_mobility(delta: float):
 	if Input.is_action_just_pressed("translate_momentum") && canUseFlowShift == true:
 		momentumToTranslate.x = abs(velocity.x)
 		momentumToTranslate.y = abs(velocity.y)
-		velocity *= 0
+		velocity = Vector2.ZERO
 		
 	
 	if Input.is_action_just_released("translate_momentum") && canUseFlowShift == true:
 		canUseFlowShift = false
+		#if momentumToTranslate.x + momentumToTranslate.y < SPEED:
+		#	momentumToTranslate = momentumToTranslate * (SPEED /4)
 		velocity = momentumToTranslate * direction
 		velocity *= 3
 		print(momentumToTranslate, direction)
@@ -87,6 +90,7 @@ func water_mobility(delta: float):
 		$CanvasLayer/Vignette.material.set_shader_parameter("inner_radius", 1/translateEffectMod)
 		$FlowShiftTimer.start()
 	elif Input.is_action_pressed("translate_momentum") && canUseFlowShift == true:
+		velocity = Vector2.ZERO
 		#velocity = lerp(velocity,Vector2.ZERO, delta * 20)
 		$CanvasLayer/Abberation.show()
 		$CanvasLayer/Vignette.show()
@@ -103,12 +107,12 @@ func water_mobility(delta: float):
 	
 	if Input.is_action_pressed("dash") && dashTime > 0:
 		dashTime -= delta * 2
-		if abs(velocity.x) + abs(velocity.y) > SPEED * 2:
+		if abs(velocity.x) + abs(velocity.y) > SPEED * 2.1:
 			velocity = lerp(velocity,direction * SPEED * 2, delta * 2)
 		else:
 			velocity = lerp(velocity,direction * SPEED * 2, delta * 10)
 	elif Input.is_action_pressed("jump"):
-		if abs(velocity.x) + abs(velocity.y) > SPEED:
+		if abs(velocity.x) + abs(velocity.y) > SPEED * 2.1:
 			velocity = lerp(velocity,direction * SPEED, delta * 8)
 		else:
 			velocity = lerp(velocity,direction * SPEED, delta * 8)
@@ -126,7 +130,7 @@ func land_mobility(delta: float):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY * 1.5
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
