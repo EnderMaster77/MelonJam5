@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var holding_flame: bool = false
 
 const SPEED = 700.0
 const JUMP_VELOCITY = -400.0
@@ -22,13 +23,12 @@ var clickPos: Vector2 = Vector2.ZERO
 
 var canUseFlowShift: bool = true
 
-func _ready() -> void:
-	var testvec: Vector2 = Vector2(20,30).normalized()
-	print(testvec.x + testvec.y, testvec)
-	testvec *= 50
-	print(testvec.x + testvec.y, testvec)
 
 func _process(delta: float) -> void:
+	if holding_flame == true:
+		modulate = Color(1,0,0,1)
+	else:
+		modulate = Color(1,1,1,1)
 	flowVisualPercent.set_shader_parameter("fill_ratio", ($FlowShiftTimer.time_left - 0.5)/($FlowShiftTimer.wait_time - 0.5) )
 	if dashTime >= maxDashTime:
 		dashVisualPercent.set_shader_parameter("fill_ratio", 0 )
@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		land_mobility(delta)
 	if on_water == true && Input.is_action_pressed("down") && in_water == false:
-		in_water = true
+		holding_flame = false
 		$CollisionShape2D.shape.size.y = 128
 		velocity.y = 300
 		set_collision_mask_value(2, false)
@@ -153,6 +153,7 @@ func land_mobility(delta: float):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	$CollisionShape2D.shape.size.y = 64
 	set_collision_mask_value(2, true)
+	
 	on_water = true
 
 
@@ -174,6 +175,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_floating_water_detection_body_entered(body: Node2D) -> void:
 	in_water = true
+	holding_flame
 
 
 func _on_floating_water_detection_body_exited(body: Node2D) -> void:
