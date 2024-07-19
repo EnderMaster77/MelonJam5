@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://w82ul3g4e48w"]
+[gd_scene load_steps=15 format=3 uid="uid://w82ul3g4e48w"]
 
 [ext_resource type="Texture2D" uid="uid://dcyf8a8yyuv1x" path="res://icon.svg" id="1_ivdh5"]
 [ext_resource type="Script" path="res://blob.gd" id="1_y4wj6"]
 [ext_resource type="Shader" path="res://Blob.gdshader" id="3_nlib3"]
+[ext_resource type="Shader" path="res://aberation.gdshader" id="4_hoqmt"]
+[ext_resource type="Shader" path="res://vignette.gdshader" id="4_u7d5i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ja8db"]
 size = Vector2(128, 128)
@@ -21,6 +23,32 @@ shader_parameter/fill_ratio = 1.0
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_q73no"]
 gradient = SubResource("Gradient_o45er")
 fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk42w"]
+shader = ExtResource("3_nlib3")
+shader_parameter/width = 0.05
+shader_parameter/gradient_ease = 1.0
+shader_parameter/fill_ratio = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0apb"]
+shader = ExtResource("4_hoqmt")
+shader_parameter/r_displacement = Vector2(0, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-3, 0)
+shader_parameter/height = 0.7
+shader_parameter/width = 0.5
+shader_parameter/fade = 0.7
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i1fet"]
+size = Vector2(1920, 1080)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ebin"]
+shader = ExtResource("4_u7d5i")
+shader_parameter/inner_radius = 0.1
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 1.0
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [node name="Blob" type="CharacterBody2D"]
 z_index = 100
@@ -44,7 +72,7 @@ shape = SubResource("RectangleShape2D_fp5dp")
 
 [node name="floatingWaterDetection" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floatingWaterDetection"]
 shape = SubResource("RectangleShape2D_fp5dp")
@@ -54,7 +82,32 @@ material = SubResource("ShaderMaterial_c07e3")
 scale = Vector2(4, 4)
 texture = SubResource("GradientTexture2D_q73no")
 
+[node name="FlowShiftCircle" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yk42w")
+scale = Vector2(6, 6)
+texture = SubResource("GradientTexture2D_q73no")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Abberation" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_j0apb")
+position = Vector2(5507, 1443)
+scale = Vector2(991.5, 535.5)
+texture = SubResource("PlaceholderTexture2D_i1fet")
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_1ebin")
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="FlowShiftTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="waterSurfaceDetection" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="waterSurfaceDetection" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="floatingWaterDetection" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="floatingWaterDetection" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="floatingWaterDetection" to="." method="_on_floating_water_detection_body_entered"]
+[connection signal="body_exited" from="floatingWaterDetection" to="." method="_on_floating_water_detection_body_exited"]
+[connection signal="timeout" from="FlowShiftTimer" to="." method="_on_flow_shift_timer_timeout"]
