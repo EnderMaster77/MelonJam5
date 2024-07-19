@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://w82ul3g4e48w"]
+
+[ext_resource type="Texture2D" uid="uid://dcyf8a8yyuv1x" path="res://icon.svg" id="1_ivdh5"]
+[ext_resource type="Script" path="res://blob.gd" id="1_y4wj6"]
+[ext_resource type="Shader" path="res://Blob.gdshader" id="3_nlib3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja8db"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fp5dp"]
+size = Vector2(128, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c07e3"]
+shader = ExtResource("3_nlib3")
+shader_parameter/width = 0.1
+shader_parameter/gradient_ease = 20.0
+shader_parameter/fill_ratio = 1.0
+
+[sub_resource type="Gradient" id="Gradient_o45er"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q73no"]
+gradient = SubResource("Gradient_o45er")
+fill_to = Vector2(0, 0)
+
+[node name="Blob" type="CharacterBody2D"]
+z_index = 100
+script = ExtResource("1_y4wj6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ivdh5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ja8db")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="waterSurfaceDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="waterSurfaceDetection"]
+shape = SubResource("RectangleShape2D_fp5dp")
+
+[node name="floatingWaterDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floatingWaterDetection"]
+shape = SubResource("RectangleShape2D_fp5dp")
+
+[node name="DashCircle" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_c07e3")
+scale = Vector2(4, 4)
+texture = SubResource("GradientTexture2D_q73no")
+
+[connection signal="body_entered" from="waterSurfaceDetection" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="waterSurfaceDetection" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="floatingWaterDetection" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="floatingWaterDetection" to="." method="_on_area_2d_body_exited"]
