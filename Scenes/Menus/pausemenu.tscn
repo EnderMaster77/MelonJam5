@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpmmp233yd12r"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/pause.gd" id="1_jnncq"]
+
+[node name="Pause" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jnncq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1856.0
+offset_bottom = 1024.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 576.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 128
+text = "Pause"
+vertical_alignment = 1
+
+[node name="Unpause" type="Button" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 384.0
+offset_right = 1792.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 78
+text = "Unpause"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 576.0
+offset_right = 1792.0
+offset_bottom = 704.0
+theme_override_font_sizes/font_size = 78
+text = "Save and quit"
+
+[node name="QuitDesktop" type="Button" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 768.0
+offset_right = 1792.0
+offset_bottom = 896.0
+theme_override_font_sizes/font_size = 78
+text = "Save and quit to desktop"
+
+[connection signal="pressed" from="Unpause" to="." method="_on_unpause_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="QuitDesktop" to="." method="_on_quit_desktop_pressed"]

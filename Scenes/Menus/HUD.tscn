@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgrede5yi21ki"]
+
+[ext_resource type="PackedScene" uid="uid://bpmmp233yd12r" path="res://Scenes/Menus/pausemenu.tscn" id="1_rytek"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="Pause" parent="." instance=ExtResource("1_rytek")]
+visible = false
+
+[node name="End Screen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

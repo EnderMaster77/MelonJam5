@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://w82ul3g4e48w"]
+[gd_scene load_steps=16 format=3 uid="uid://w82ul3g4e48w"]
 
 [ext_resource type="Texture2D" uid="uid://dcyf8a8yyuv1x" path="res://icon.svg" id="1_ivdh5"]
 [ext_resource type="Script" path="res://Scripts/blob.gd" id="1_y4wj6"]
+[ext_resource type="PackedScene" uid="uid://bgrede5yi21ki" path="res://Scenes/Menus/HUD.tscn" id="2_nss61"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/Blob.gdshader" id="3_nlib3"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/aberation.gdshader" id="4_hoqmt"]
 [ext_resource type="Shader" path="res://Scripts/Shaders/vignette.gdshader" id="4_u7d5i"]
@@ -55,6 +56,8 @@ z_index = 100
 collision_layer = 128
 collision_mask = 129
 script = ExtResource("1_y4wj6")
+
+[node name="Hud" parent="." instance=ExtResource("2_nss61")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ivdh5")
