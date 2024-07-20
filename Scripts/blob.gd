@@ -21,10 +21,11 @@ var on_water: bool = false
 var momentumToTranslate: Vector2 = Vector2.ZERO
 var clickPos: Vector2 = Vector2.ZERO
 
-var canUseFlowShift: bool = true
+@export var canUseFlowShift: bool = false
 
 
 func _process(delta: float) -> void:
+	print(on_water)
 	if holding_flame == true:
 		modulate = Color(1,0,0,1)
 	else:
@@ -51,12 +52,6 @@ func _process(delta: float) -> void:
 			cam.zoom = lerp(cam.zoom, Vector2(0.5,0.5), delta * 4)
 		
 func _physics_process(delta: float) -> void:
-		
-	
-	
-		
-		
-	
 	dashVisualPercent.set_shader_parameter("fill_ratio", (dashTime - 0.5)/(maxDashTime - 0.5) )
 	if dashTime >= maxDashTime:
 		dashVisualPercent.set_shader_parameter("fill_ratio", 0 )
@@ -134,8 +129,9 @@ func land_mobility(delta: float):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY * 1.5
-
+		velocity.y = JUMP_VELOCITY * 1.75
+	elif Input.is_action_just_released("jump") && velocity.y < 0:
+		velocity.y = 0
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("left", "right")
@@ -159,6 +155,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	("out")
+	on_water = false
 	$CollisionShape2D.shape.size.y = 128
 	set_collision_mask_value(2, false)
 	if in_water == true:

@@ -5,7 +5,7 @@ func _ready() -> void:
 	$AnimatedSprite2D.pause()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if $AnimatedSprite2D.is_playing() == false:
+	if $AnimatedSprite2D.is_playing() == false && body.holding_flame == true:
 		$AnimatedSprite2D.play("Melting")
 
 

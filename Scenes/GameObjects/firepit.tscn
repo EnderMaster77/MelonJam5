@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://db31ppiijcirr"]
+[gd_scene load_steps=4 format=3 uid="uid://dvqvep2gy63n"]
 
-[ext_resource type="Script" path="res://Scenes/firepit.gd" id="1_iqbg6"]
-[ext_resource type="Texture2D" uid="uid://dcyf8a8yyuv1x" path="res://icon.svg" id="1_meeoh"]
+[ext_resource type="Script" path="res://Scripts/firepit.gd" id="1_lbd5s"]
+[ext_resource type="Texture2D" uid="uid://dcyf8a8yyuv1x" path="res://icon.svg" id="2_18pvd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ac6b7"]
-size = Vector2(500, 500)
+size = Vector2(1000, 500)
 
-[node name="Torch" type="Area2D"]
-modulate = Color(1, 0.372549, 0, 1)
+[node name="Firepit" type="Area2D"]
 collision_layer = 0
 collision_mask = 128
-script = ExtResource("1_iqbg6")
+script = ExtResource("1_lbd5s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_meeoh")
+scale = Vector2(5, 2.5)
+texture = ExtResource("2_18pvd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ac6b7")

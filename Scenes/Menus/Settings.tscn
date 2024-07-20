@@ -1,0 +1,158 @@
+[gd_scene load_steps=2 format=3 uid="uid://be2xebdkxtccc"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/settings.gd" id="1_s1pj3"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s1pj3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1856.0
+offset_bottom = 1024.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_top = 896.0
+offset_right = 192.0
+offset_bottom = 960.0
+text = "Exit without Saving"
+
+[node name="Button3" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 896.0
+offset_right = 384.0
+offset_bottom = 960.0
+text = "Exit and Save"
+
+[node name="Button4" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 896.0
+offset_right = 576.0
+offset_bottom = 960.0
+text = "Save"
+
+[node name="OptionButton" type="OptionButton" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 128.0
+offset_top = 576.0
+offset_right = 520.0
+offset_bottom = 640.0
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Default"
+popup/item_1/text = "X11"
+popup/item_1/id = 1
+popup/item_2/text = "Wayland"
+popup/item_2/id = 2
+
+[node name="Controls" type="Control" parent="Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Controls" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 18
+text = "Controls"
+
+[node name="Button" type="Button" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 512.0
+offset_bottom = 192.0
+
+[node name="Controls2" type="Label" parent="Panel/Controls/Button"]
+layout_mode = 0
+offset_left = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Up"
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 192.0
+offset_right = 512.0
+offset_bottom = 256.0
+metadata/_edit_group_ = true
+
+[node name="Controls2" type="Label" parent="Panel/Controls/Button2"]
+layout_mode = 0
+offset_left = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Down"
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 256.0
+offset_right = 512.0
+offset_bottom = 320.0
+metadata/_edit_group_ = true
+
+[node name="Controls2" type="Label" parent="Panel/Controls/Button3"]
+layout_mode = 0
+offset_left = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Left"
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 320.0
+offset_right = 512.0
+offset_bottom = 384.0
+metadata/_edit_group_ = true
+
+[node name="Controls2" type="Label" parent="Panel/Controls/Button4"]
+layout_mode = 0
+offset_left = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Right"
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 512.0
+offset_bottom = 448.0
+metadata/_edit_group_ = true
+
+[node name="Controls2" type="Label" parent="Panel/Controls/Button5"]
+layout_mode = 0
+offset_left = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Dash"
+vertical_alignment = 1
+
+[connection signal="pressed" from="Panel/Button4" to="." method="_on_button_4_pressed"]

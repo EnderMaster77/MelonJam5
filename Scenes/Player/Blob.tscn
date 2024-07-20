@@ -10,7 +10,7 @@
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fp5dp"]
-size = Vector2(128, 128)
+size = Vector2(76, 120)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c07e3"]
 shader = ExtResource("3_nlib3")
@@ -64,6 +64,7 @@ shape = SubResource("RectangleShape2D_ja8db")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
+limit_smoothed = true
 
 [node name="waterSurfaceDetection" type="Area2D" parent="."]
 collision_layer = 0
@@ -107,6 +108,10 @@ offset_bottom = 1080.0
 [node name="FlowShiftTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 350)
+target_position = Vector2(0, -350)
 
 [connection signal="body_entered" from="waterSurfaceDetection" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="waterSurfaceDetection" to="." method="_on_area_2d_body_exited"]
