@@ -8,10 +8,8 @@ func _process(delta: float) -> void:
 		if player.holding_flame == true && lit == false:
 			lit = true
 			modulate = Color(1,1,0,1)
-			print("Light")
 		elif lit == true:
 			player.holding_flame = true
-			print("Idk")
 
 
 func _on_body_entered(body: Node2D) -> void:

@@ -9,10 +9,8 @@ var config = ConfigFile.new()
 # Called when the node enters the scene tree for the first time.
 
 func _unhandled_input(event: InputEvent) -> void:
-	print(event)
 	if event == InputEventMouseButton:
 		config.set_value("Controls", "test", event)
-		print("wer")
 
 func _ready() -> void:
 	if OS.get_name() == "Linux":

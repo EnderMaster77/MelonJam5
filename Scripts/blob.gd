@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name player
 var holding_flame: bool = false
 
 const SPEED = 700.0
@@ -24,8 +24,10 @@ var clickPos: Vector2 = Vector2.ZERO
 @export var canUseFlowShift: bool = false
 
 
+
 func _process(delta: float) -> void:
-	print(on_water)
+	if Global.levelComplete == true:
+		$"Hud/End Screen".end_game()
 	if holding_flame == true:
 		modulate = Color(1,0,0,1)
 	else:

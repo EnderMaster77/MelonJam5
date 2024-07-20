@@ -1,15 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgrede5yi21ki"]
+[gd_scene load_steps=7 format=3 uid="uid://bgrede5yi21ki"]
 
 [ext_resource type="PackedScene" uid="uid://bpmmp233yd12r" path="res://Scenes/Menus/pausemenu.tscn" id="1_rytek"]
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_y23wj"]
+[ext_resource type="StyleBox" uid="uid://dgn37vppv480s" path="res://stylebox.tres" id="2_p27c0"]
+[ext_resource type="Script" path="res://Scripts/end_screen.gd" id="2_x85gu"]
+[ext_resource type="Texture2D" uid="uid://cxc1jg0nbnfx8" path="res://Assets/blackbg.png" id="4_tron1"]
+
+[sub_resource type="Theme" id="Theme_jkerm"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/styles/disabled = ExtResource("2_p27c0")
+Button/styles/focus = ExtResource("2_p27c0")
+Button/styles/hover = ExtResource("2_p27c0")
+Button/styles/normal = ExtResource("2_p27c0")
 
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_y23wj")
 
 [node name="Pause" parent="." instance=ExtResource("1_rytek")]
 visible = false
 
 [node name="End Screen" type="Control" parent="."]
-visible = false
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1344.0
+offset_bottom = 568.0
+theme = SubResource("Theme_jkerm")
+script = ExtResource("2_x85gu")
+
+[node name="Sprite2D" type="Sprite2D" parent="End Screen"]
+position = Vector2(960, 540)
+texture = ExtResource("4_tron1")
+
+[node name="Label" type="Label" parent="End Screen"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_font_sizes/font_size = 76
+text = "da end"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="End Screen"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 792.0
+offset_right = 1856.0
+offset_bottom = 960.0
+theme_override_font_sizes/font_size = 76
+text = "test"
+
+[connection signal="pressed" from="End Screen/Button" to="End Screen" method="_on_button_pressed"]

@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://dgn37vppv480s"]
+
+[sub_resource type="Gradient" id="Gradient_uxfji"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mhkcs"]
+gradient = SubResource("Gradient_uxfji")
+fill_to = Vector2(0.688, 0)
+
+[resource]
+texture = SubResource("GradientTexture2D_mhkcs")
