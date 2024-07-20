@@ -22,7 +22,7 @@ func _on_quit_pressed() -> void:
 	if in_level == true:
 		#Global.sceneToLoadPath = WorldMap
 		Global.sceneToLoadPath = MainMenu
-		get_tree().paused = false
+		get_tree().paused = false 
 		get_tree().change_scene_to_packed(loadingScreen)
 	else:
 		Global.sceneToLoadPath = MainMenu
